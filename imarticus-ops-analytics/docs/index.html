@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Order Operations Dashboard</title>
+  <meta name="description" content="E-commerce order operations analysis: delivery SLA, courier performance, returns and payment risk. Built with Python (Pandas), SQL and Chart.js.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <p class="eyebrow">Data analytics project &middot; Python &middot; SQL &middot; Dashboard</p>
+      <h1>Order Operations Dashboard</h1>
+      <p class="lede">How well does an Indian e-commerce business deliver what it sells? This dashboard tracks
+        delivery speed, late deliveries, courier performance, returns and payment risk across
+        <span id="totalOrders">6,000</span> orders placed in 2025.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="filters" aria-label="Filters">
+      <label>Region
+        <select id="f-region"></select>
+      </label>
+      <label>Category
+        <select id="f-category"></select>
+      </label>
+      <label>Courier
+        <select id="f-courier"></select>
+      </label>
+      <label>Payment
+        <select id="f-payment"></select>
+      </label>
+      <label>From
+        <select id="f-from"></select>
+      </label>
+      <label>To
+        <select id="f-to"></select>
+      </label>
+      <button type="button" id="reset" class="reset">Reset</button>
+    </section>
+    <p class="showing" id="showing" aria-live="polite"></p>
+
+    <section class="kpis" aria-label="Key numbers">
+      <article class="kpi"><h2>Net revenue</h2><p class="v" id="k-revenue">–</p><p class="s" id="k-revenue-s"></p></article>
+      <article class="kpi"><h2>Orders</h2><p class="v" id="k-orders">–</p><p class="s" id="k-orders-s"></p></article>
+      <article class="kpi"><h2>Avg delivery time</h2><p class="v" id="k-days">–</p><p class="s" id="k-days-s"></p></article>
+      <article class="kpi warn"><h2>Late deliveries</h2><p class="v" id="k-late">–</p><p class="s" id="k-late-s"></p></article>
+      <article class="kpi"><h2>Return rate</h2><p class="v" id="k-return">–</p><p class="s" id="k-return-s"></p></article>
+      <article class="kpi"><h2>Avg rating</h2><p class="v" id="k-rating">–</p><p class="s" id="k-rating-s"></p></article>
+    </section>
+
+    <div id="empty" class="empty" hidden>No orders match these filters. <button type="button" class="link" id="reset2">Reset filters</button></div>
+
+    <section class="grid" id="charts">
+      <article class="card wide">
+        <header><h3>Orders and late deliveries by month</h3>
+          <p>Bars show order volume; the line shows the share of orders delivered after the promised date.</p></header>
+        <div class="chart tall"><canvas id="c-monthly" role="img" aria-label="Monthly orders and late delivery percentage"></canvas></div>
+      </article>
+
+      <article class="card">
+        <header><h3>Courier scorecard</h3><p>Late deliveries (% of shipments) by delivery partner.</p></header>
+        <div class="chart"><canvas id="c-courier" role="img" aria-label="Late delivery percentage by courier"></canvas></div>
+      </article>
+
+      <article class="card">
+        <header><h3>Return rate by category</h3><p>% of orders sent back by the customer.</p></header>
+        <div class="chart"><canvas id="c-category" role="img" aria-label="Return rate by product category"></canvas></div>
+      </article>
+
+      <article class="card">
+        <header><h3>Why customers return</h3><p>Share of all returns, by reason.</p></header>
+        <div class="chart"><canvas id="c-reasons" role="img" aria-label="Return reasons"></canvas></div>
+      </article>
+
+      <article class="card">
+        <header><h3>Payment mode risk</h3><p>Cancellation and return rate. Cash on Delivery is the outlier.</p></header>
+        <div class="chart"><canvas id="c-payment" role="img" aria-label="Cancellation and return rate by payment mode"></canvas></div>
+      </article>
+
+      <article class="card">
+        <header><h3>Late delivery hurts ratings</h3><p>Rating given by customers whose order came on time vs late.</p></header>
+        <div class="chart"><canvas id="c-rating" role="img" aria-label="Rating distribution for on-time versus late orders"></canvas></div>
+      </article>
+
+      <article class="card">
+        <header><h3>Revenue by category</h3><p>Net revenue (cancelled and returned orders excluded).</p></header>
+        <div class="chart"><canvas id="c-revenue" role="img" aria-label="Net revenue by category"></canvas></div>
+      </article>
+
+      <article class="card wide">
+        <header><h3>City performance</h3><p>Sorted by revenue. Promised delivery: 5 days in Tier 1 cities, 7 days in Tier 2.</p></header>
+        <div class="table-wrap">
+          <table id="t-city">
+            <thead><tr><th scope="col">City</th><th scope="col">Region</th><th scope="col" class="n">Orders</th>
+              <th scope="col" class="n">Net revenue</th><th scope="col" class="n">Avg days</th>
+              <th scope="col">Late deliveries</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <section class="insights" aria-labelledby="ins-h">
+      <h2 id="ins-h">What the data says</h2>
+      <p class="note">Full-year findings from the SQL analysis (not affected by the filters above).</p>
+      <div class="cols">
+        <div><h3>Findings</h3><ol id="findings"></ol></div>
+        <div><h3>Recommendations</h3><ol id="recs"></ol></div>
+      </div>
+    </section>
+
+    <section class="method" aria-labelledby="m-h">
+      <h2 id="m-h">How this was built</h2>
+      <ol class="steps">
+        <li><strong>Raw data</strong> 6,150 order rows with real-world problems: duplicates, three date formats, 'Bangalore' vs 'BENGALURU', prices stored as '₹1,299.00', missing values and impossible dates.</li>
+        <li><strong>Cleaning in Python (Pandas)</strong> Each step is logged with row counts. 209 bad rows removed; regions recovered from city; delivery time and SLA breach calculated.</li>
+        <li><strong>Analysis in SQL</strong> 12 queries in SQLite using GROUP BY, CTEs and window functions (RANK, ROW_NUMBER) for courier, category, city, payment and seasonality views.</li>
+        <li><strong>Dashboard</strong> This page. Plain HTML and Chart.js; all filtering happens in the browser.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="wrap foot">
+    <p>Data is synthetic, generated by a fixed-seed script to look like a real order export. Numbers are for demonstration only.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

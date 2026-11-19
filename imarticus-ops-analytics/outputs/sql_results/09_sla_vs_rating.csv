@@ -1,0 +1,3 @@
+delivery,orders,rated_orders,avg_rating,low_rating_pct,return_rate_pct
+On time,4094,3398,4.19,2.8,10.9
+Late (SLA breached),1511,1240,3.07,23.2,14.9

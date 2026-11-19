@@ -1,0 +1,6 @@
+courier,shipments,avg_days_to_deliver,sla_breach_pct,return_rate_pct,damaged_in_transit,damaged_pct,avg_rating,sla_rank
+BlueDart,1225,4.2,12.1,10.0,22,1.8,4.09,1
+XpressBees,1021,4.97,24.0,10.2,29,2.8,3.92,2
+Delhivery,1679,4.95,25.2,12.1,41,2.4,3.88,3
+Ecom Express,1023,5.18,27.4,13.0,37,3.6,3.89,4
+India Post,657,6.79,63.2,16.4,20,3.0,3.46,5

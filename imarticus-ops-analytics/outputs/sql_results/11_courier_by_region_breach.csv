@@ -1,0 +1,21 @@
+region,courier,shipments,sla_breach_pct
+East,BlueDart,136,24.3
+East,XpressBees,102,40.2
+East,Delhivery,138,47.1
+East,Ecom Express,104,47.1
+East,India Post,59,76.3
+North,BlueDart,211,14.2
+North,Delhivery,324,21.9
+North,XpressBees,175,23.4
+North,Ecom Express,188,27.7
+North,India Post,111,65.8
+South,BlueDart,567,11.5
+South,XpressBees,452,23.9
+South,Ecom Express,471,25.7
+South,Delhivery,771,26.2
+South,India Post,302,65.2
+West,BlueDart,311,6.4
+West,XpressBees,292,18.8
+West,Delhivery,446,19.1
+West,Ecom Express,260,22.3
+West,India Post,185,54.1

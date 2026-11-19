@@ -1,0 +1,6 @@
+payment_mode,orders,order_share_pct,cancel_rate_pct,return_rate_pct
+UPI,2495,42.0,2.8,9.8
+COD,1493,25.1,7.7,15.0
+Card,1169,19.7,3.3,9.4
+Wallet,450,7.6,2.7,11.1
+Net Banking,334,5.6,2.7,12.6

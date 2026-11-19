@@ -1,0 +1,3 @@
+period,months,orders_per_month,avg_days_to_ship,avg_days_to_deliver,sla_breach_pct
+Regular (other months),10,448.0,1.42,4.55,15.5
+Festive (Oct-Nov),2,729.0,2.42,6.53,61.3

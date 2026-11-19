@@ -1,0 +1,12 @@
+city,region,tier,orders,net_revenue_inr,avg_days_to_deliver,sla_breach_pct,revenue_rank
+Bengaluru,South,Tier 1,958,3558434.0,4.77,30.1,1
+Chennai,South,Tier 1,877,2850037.0,4.64,27.6,2
+Mumbai,West,Tier 1,806,2443950.0,4.76,29.9,3
+Delhi,North,Tier 1,787,2399725.0,4.82,30.7,4
+Hyderabad,South,Tier 1,633,2371242.0,4.57,27.1,5
+Pune,West,Tier 2,462,1613926.0,5.66,13.4,6
+Kolkata,East,Tier 1,402,1392728.0,5.61,51.2,7
+Ahmedabad,West,Tier 2,314,1043238.0,5.63,10.8,8
+Jaipur,North,Tier 2,286,976036.0,5.77,14.9,9
+Kochi,South,Tier 2,244,873583.0,5.84,12.7,10
+Bhubaneswar,East,Tier 2,172,546840.0,6.49,24.4,11
